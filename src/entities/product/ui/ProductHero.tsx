@@ -1,18 +1,17 @@
 import { useState } from 'react';
 
-import type { BundleVariant } from '@/entities/bundle/model/bundle.types';
+import type {
+  ProductVariant,
+  ProductVisualKind,
+} from '@/entities/product/model/types';
 
-type BundleProductHeroProps = {
+type ProductHeroProps = {
   name: string;
-  kind: 'camera' | 'sensor';
-  variant: BundleVariant | null;
+  kind: ProductVisualKind;
+  variant: ProductVariant | null;
 };
 
-export function BundleProductHero({
-  name,
-  kind,
-  variant,
-}: BundleProductHeroProps) {
+export function ProductHero({ name, kind, variant }: ProductHeroProps) {
   const [hasImageError, setHasImageError] = useState(false);
   const imageSrc = variant?.image ?? null;
 

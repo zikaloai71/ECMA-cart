@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
-import type { BundleVariant } from '@/entities/bundle/model/bundle.types';
+import type { ProductVariant } from '@/entities/product/model/types';
 import { cn } from '@/shared/lib/cn';
 
-type BundleProductVariantSelectorProps = {
+type SelectVariantControlProps = {
   selectedVariantId: string | null;
-  variants: BundleVariant[];
+  variants: ProductVariant[];
   onSelect: (variantId: string) => void;
 };
 
-export function BundleProductVariantSelector({
+export function SelectVariantControl({
   selectedVariantId,
   variants,
   onSelect,
-}: BundleProductVariantSelectorProps) {
+}: SelectVariantControlProps) {
   if (variants.length === 0) {
     return null;
   }
@@ -46,7 +46,7 @@ export function BundleProductVariantSelector({
   );
 }
 
-function VariantThumbnail({ variant }: { variant: BundleVariant }) {
+function VariantThumbnail({ variant }: { variant: ProductVariant }) {
   const [hasImageError, setHasImageError] = useState(false);
 
   return (

@@ -15,6 +15,7 @@ type AccordionProps = {
   children: ReactNode;
   header?: ReactNode;
   icon?: ReactNode;
+  trailingContent?: ReactNode;
   open?: boolean;
   defaultOpen?: boolean;
   disabled?: boolean;
@@ -31,6 +32,7 @@ export function Accordion({
   children,
   header,
   icon,
+  trailingContent,
   open,
   defaultOpen = false,
   disabled = false,
@@ -114,14 +116,22 @@ export function Accordion({
             </span>
           </span>
 
-          <span
-            className={cn(
-              'shrink-0 text-primary transition-transform duration-200',
-              isOpen ? 'rotate-180' : 'rotate-0',
-            )}
-            aria-hidden="true"
-          >
-            <AccordionChevronIcon />
+          <span className="flex shrink-0 items-center gap-3 sm:gap-4">
+            {trailingContent ? (
+              <span className="text-sm font-semibold text-primary sm:text-base">
+                {trailingContent}
+              </span>
+            ) : null}
+
+            <span
+              className={cn(
+                'text-primary transition-transform duration-200',
+                isOpen ? 'rotate-180' : 'rotate-0',
+              )}
+              aria-hidden="true"
+            >
+              <AccordionChevronIcon />
+            </span>
           </span>
         </button>
       </HeadingTag>

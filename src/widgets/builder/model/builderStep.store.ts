@@ -2,13 +2,13 @@ import { create } from 'zustand';
 
 const FIRST_STEP = 1;
 
-type BundleBuilderState = {
+type BuilderStepState = {
   openStep: number | null;
   goToStep: (stepNumber: number) => void;
   toggleStep: (stepNumber: number) => void;
 };
 
-export const useBundleBuilderStore = create<BundleBuilderState>((set) => ({
+export const useBuilderStepStore = create<BuilderStepState>()((set) => ({
   openStep: FIRST_STEP,
   goToStep: (stepNumber) => {
     set({ openStep: stepNumber });

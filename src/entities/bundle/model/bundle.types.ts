@@ -1,35 +1,18 @@
-export type BundleVariant = {
-  id: string;
-  label: string;
-  image: string;
-};
+import type { ProductPricing } from '@/entities/product/model/types';
 
-export type BundleSelectableProduct = {
+export type BundlePlan = ProductPricing & {
   id: string;
   name: string;
   description: string;
-  price: number;
-  offerPrice: number | null;
-  variants: BundleVariant[];
-};
-
-export type BundlePlan = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
   billingPeriod: string;
-  offerPrice: number | null;
   badge: string;
   features: string[];
 };
 
-export type BundleProtection = {
+export type BundleProtection = ProductPricing & {
   id: string;
   name: string;
   description: string;
-  price: number;
-  offerPrice: number | null;
   coverageType: string;
   term: string;
   benefits: string[];

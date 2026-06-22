@@ -1,6 +1,5 @@
-import { useState } from 'react';
-
 import type { BundlePlan } from '@/entities/bundle/model/bundle.types';
+import { useBundleCartStore } from '@/entities/bundle/model/bundleCart.store';
 import { cn } from '@/shared/lib/cn';
 import { formatCurrency } from '@/shared/lib/formatCurrency';
 import { Button } from '@/shared/ui/button/Button';
@@ -11,7 +10,11 @@ type BundlePlanCardProps = {
 };
 
 export function BundlePlanCard({ plan, className }: BundlePlanCardProps) {
-  const [selected, setSelected] = useState(false);
+  const selectedPlanId = useBundleCartStore((state) => state.selectedPlanId);
+  const togglePlanSelection = useBundleCartStore(
+    (state) => state.togglePlanSelection,
+  );
+  const selected = selectedPlanId === plan.id;
 
   return (
     <article
@@ -57,7 +60,7 @@ export function BundlePlanCard({ plan, className }: BundlePlanCardProps) {
         <Button
           variant={selected ? 'primary' : 'secondary'}
           fullWidth
-          onClick={() => setSelected((current) => !current)}
+          onClick={() => togglePlanSelection(plan.id)}
         >
           {selected ? 'Selected' : 'Choose plan'}
         </Button>

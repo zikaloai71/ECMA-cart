@@ -1,14 +1,11 @@
 import { formatCurrency } from '@/shared/lib/formatCurrency';
 
-type BundleProductPriceBlockProps = {
+type ProductPriceProps = {
   price: number;
   offerPrice: number | null;
 };
 
-export function BundleProductPriceBlock({
-  price,
-  offerPrice,
-}: BundleProductPriceBlockProps) {
+export function ProductPrice({ price, offerPrice }: ProductPriceProps) {
   return (
     <div className="min-w-0 text-right">
       {offerPrice ? (

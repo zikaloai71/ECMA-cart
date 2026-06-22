@@ -1,6 +1,5 @@
-import { useState } from 'react';
-
 import type { BundleProtection } from '@/entities/bundle/model/bundle.types';
+import { useBundleCartStore } from '@/entities/bundle/model/bundleCart.store';
 import { cn } from '@/shared/lib/cn';
 import { formatCurrency } from '@/shared/lib/formatCurrency';
 import { Button } from '@/shared/ui/button/Button';
@@ -14,7 +13,13 @@ export function BundleProtectionCard({
   protection,
   className,
 }: BundleProtectionCardProps) {
-  const [added, setAdded] = useState(false);
+  const selectedProtectionId = useBundleCartStore(
+    (state) => state.selectedProtectionId,
+  );
+  const toggleProtectionSelection = useBundleCartStore(
+    (state) => state.toggleProtectionSelection,
+  );
+  const added = selectedProtectionId === protection.id;
 
   return (
     <article
@@ -67,7 +72,7 @@ export function BundleProtectionCard({
         <Button
           variant={added ? 'primary' : 'secondary'}
           fullWidth
-          onClick={() => setAdded((current) => !current)}
+          onClick={() => toggleProtectionSelection(protection.id)}
         >
           {added ? 'Added' : 'Add protection'}
         </Button>

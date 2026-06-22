@@ -1,17 +1,24 @@
 import sensorsData from '@/data/bundle-sensors.json';
-import type { BundleSelectableProduct } from '@/entities/bundle/model/bundle.types';
+import { useBundleCartStore } from '@/entities/bundle/model/bundleCart.store';
+import { countSelectedProducts } from '@/entities/bundle/model/bundle.selectors';
+import type { SelectableProduct } from '@/entities/product/model/types';
 import { BundleProductCard } from '@/widgets/builder/cards/BundleProductCard';
 import { BuilderStepContent } from '@/widgets/builder/content/BuilderStepContent';
 import { BuilderStep } from '@/widgets/builder/steps/BuilderStep';
 
+const sensors = sensorsData as SelectableProduct[];
+
 export function ChooseSensorsStep() {
-  const sensors = sensorsData as BundleSelectableProduct[];
+  const selectedCount = useBundleCartStore((state) =>
+    countSelectedProducts(sensors, state.quantitiesBySelectionKey),
+  );
 
   return (
     <BuilderStep
       stepNumber={3}
       title="Choose your sensors"
       icon={<SensorsIcon />}
+      summary={selectedCount > 0 ? `${selectedCount} selected` : undefined}
       nextActionLabel="Next: Add extra protection"
       nextStepNumber={4}
     >

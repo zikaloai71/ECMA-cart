@@ -1,18 +1,18 @@
 import { cn } from '@/shared/lib/cn';
 
-type BundleProductQuantityControlProps = {
+type ChangeQuantityControlProps = {
   quantity: number;
   itemName: string;
   onDecrease: () => void;
   onIncrease: () => void;
 };
 
-export function BundleProductQuantityControl({
+export function ChangeQuantityControl({
   quantity,
   itemName,
   onDecrease,
   onIncrease,
-}: BundleProductQuantityControlProps) {
+}: ChangeQuantityControlProps) {
   return (
     <div className="flex items-center gap-3">
       <button

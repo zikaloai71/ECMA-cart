@@ -1,15 +1,22 @@
-import { useState } from 'react';
-
-import type { BundleSelectableProduct } from '@/entities/bundle/model/bundle.types';
+import { useBundleCartStore } from '@/entities/bundle/model/bundleCart.store';
+import {
+  getBundleSelectionKey,
+  productHasCartSelection,
+} from '@/entities/bundle/model/bundle.selectors';
+import type {
+  ProductVisualKind,
+  SelectableProduct,
+} from '@/entities/product/model/types';
+import { getSavingsPercent } from '@/entities/product/model/product.utils';
+import { ProductHero } from '@/entities/product/ui/ProductHero';
+import { ProductPrice } from '@/entities/product/ui/ProductPrice';
+import { ChangeQuantityControl } from '@/features/change-quantity/ui/ChangeQuantityControl';
+import { SelectVariantControl } from '@/features/select-variant/ui/SelectVariantControl';
 import { cn } from '@/shared/lib/cn';
-import { BundleProductHero } from '@/widgets/builder/cards/product-card/BundleProductHero';
-import { BundleProductPriceBlock } from '@/widgets/builder/cards/product-card/BundleProductPriceBlock';
-import { BundleProductQuantityControl } from '@/widgets/builder/cards/product-card/BundleProductQuantityControl';
-import { BundleProductVariantSelector } from '@/widgets/builder/cards/product-card/BundleProductVariantSelector';
 
 type BundleProductCardProps = {
-  product: BundleSelectableProduct;
-  kind: 'camera' | 'sensor';
+  product: SelectableProduct;
+  kind: ProductVisualKind;
   className?: string;
 };
 
@@ -18,18 +25,35 @@ export function BundleProductCard({
   kind,
   className,
 }: BundleProductCardProps) {
-  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
-    product.variants[0]?.id ?? null,
+  const storedSelectedVariantId = useBundleCartStore(
+    (state) => state.selectedVariantIdsByProductId[product.id] ?? null,
   );
-  const [quantity, setQuantity] = useState(0);
+  const selectVariant = useBundleCartStore((state) => state.selectVariant);
+  const incrementSelectionQuantity = useBundleCartStore(
+    (state) => state.incrementSelectionQuantity,
+  );
+  const decrementSelectionQuantity = useBundleCartStore(
+    (state) => state.decrementSelectionQuantity,
+  );
+  const selectedVariantId =
+    storedSelectedVariantId ?? product.variants[0]?.id ?? null;
   const selectedVariant =
     product.variants.find((variant) => variant.id === selectedVariantId) ?? null;
+  const quantity = useBundleCartStore((state) => {
+    const selectionKey = getBundleSelectionKey(product.id, selectedVariantId);
+
+    return state.quantitiesBySelectionKey[selectionKey] ?? 0;
+  });
+  const hasCartSelection = useBundleCartStore((state) =>
+    productHasCartSelection(product, state.quantitiesBySelectionKey),
+  );
   const savingsPercent = getSavingsPercent(product.price, product.offerPrice);
 
   return (
     <article
       className={cn(
-        'flex h-full min-w-0 flex-col gap-1 rounded-card bg-surface p-4 shadow-card',
+        'flex h-full min-w-0 flex-col gap-1 rounded-card border bg-surface p-4 shadow-card transition-colors',
+        hasCartSelection ? 'border-primary' : 'border-border',
         className,
       )}
     >
@@ -41,7 +65,7 @@ export function BundleProductCard({
             </p>
           ) : null}
 
-          <BundleProductHero
+          <ProductHero
             key={selectedVariant?.id ?? product.id}
             name={product.name}
             kind={kind}
@@ -62,21 +86,25 @@ export function BundleProductCard({
             </p>
           </div>
 
-          <BundleProductVariantSelector
+          <SelectVariantControl
             selectedVariantId={selectedVariantId}
             variants={product.variants}
-            onSelect={setSelectedVariantId}
+            onSelect={(variantId) => selectVariant(product.id, variantId)}
           />
 
           <div className="my-auto grid min-w-0 grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3">
-            <BundleProductQuantityControl
+            <ChangeQuantityControl
               quantity={quantity}
               itemName={product.name}
-              onDecrease={() => setQuantity((current) => Math.max(0, current - 1))}
-              onIncrease={() => setQuantity((current) => current + 1)}
+              onDecrease={() =>
+                decrementSelectionQuantity(product.id, selectedVariantId)
+              }
+              onIncrease={() =>
+                incrementSelectionQuantity(product.id, selectedVariantId)
+              }
             />
 
-            <BundleProductPriceBlock
+            <ProductPrice
               price={product.price}
               offerPrice={product.offerPrice}
             />
@@ -85,12 +113,4 @@ export function BundleProductCard({
       </div>
     </article>
   );
-}
-
-function getSavingsPercent(price: number, offerPrice: number | null) {
-  if (!offerPrice || offerPrice >= price) {
-    return null;
-  }
-
-  return Math.round(((price - offerPrice) / price) * 100);
 }

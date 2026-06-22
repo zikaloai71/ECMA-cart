@@ -1,28 +1,35 @@
 import camerasData from '@/data/bundle-cameras.json';
-import type { BundleSelectableProduct } from '@/entities/bundle/model/bundle.types';
+import { useBundleCartStore } from '@/entities/bundle/model/bundleCart.store';
+import { countSelectedProducts } from '@/entities/bundle/model/bundle.selectors';
+import type { SelectableProduct } from '@/entities/product/model/types';
 import { BundleProductCard } from '@/widgets/builder/cards/BundleProductCard';
 import { BuilderStepContent } from '@/widgets/builder/content/BuilderStepContent';
 import { BuilderStep } from '@/widgets/builder/steps/BuilderStep';
 
+const cameras = camerasData as SelectableProduct[];
+
 export function ChooseCamerasStep() {
-  const cameras = camerasData as BundleSelectableProduct[];
+  const selectedCount = useBundleCartStore((state) =>
+    countSelectedProducts(cameras, state.quantitiesBySelectionKey),
+  );
 
   return (
     <BuilderStep
       stepNumber={1}
       title="Choose your cameras"
       icon={<CameraIcon />}
+      summary={selectedCount > 0 ? `${selectedCount} selected` : undefined}
       nextActionLabel="Next: Choose your plan"
       nextStepNumber={2}
     >
       <BuilderStepContent className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-          {cameras.map((camera) => (
-            <BundleProductCard
-              key={camera.id}
-              product={camera}
-              kind="camera"
-            />
-          ))}
+        {cameras.map((camera) => (
+          <BundleProductCard
+            key={camera.id}
+            product={camera}
+            kind="camera"
+          />
+        ))}
       </BuilderStepContent>
     </BuilderStep>
   );
