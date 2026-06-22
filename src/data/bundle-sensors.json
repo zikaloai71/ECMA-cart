@@ -1,0 +1,73 @@
+[
+  {
+    "id": "sensor-entry-core",
+    "name": "Entry Sensor",
+    "description": "A compact contact sensor for doors, windows, cabinets, and other entry points.",
+    "price": 13.99,
+    "offerPrice": 9.99,
+    "variants": [
+      {
+        "id": "sensor-entry-core-white",
+        "label": "White",
+        "image": "/images/sensors/entry-sensor-white.png"
+      },
+      {
+        "id": "sensor-entry-core-black",
+        "label": "Black",
+        "image": "/images/sensors/entry-sensor-black.png"
+      }
+    ]
+  },
+  {
+    "id": "sensor-motion-core",
+    "name": "Motion Sensor",
+    "description": "A reliable motion detector for rooms, hallways, and covered indoor spaces.",
+    "price": 18.99,
+    "offerPrice": 14.99,
+    "variants": [
+      {
+        "id": "sensor-motion-core-white",
+        "label": "White",
+        "image": "/images/sensors/motion-sensor-white.png"
+      },
+      {
+        "id": "sensor-motion-core-black",
+        "label": "Black",
+        "image": "/images/sensors/motion-sensor-black.png"
+      }
+    ]
+  },
+  {
+    "id": "sensor-leak-guard",
+    "name": "Leak Sensor",
+    "description": "A water-leak sensor for sinks, laundry rooms, basements, and water heaters.",
+    "price": 16.99,
+    "offerPrice": 12.99,
+    "variants": [
+      {
+        "id": "sensor-leak-guard-white",
+        "label": "White",
+        "image": "/images/sensors/leak-sensor-white.png"
+      },
+      {
+        "id": "sensor-leak-guard-blue",
+        "label": "Blue",
+        "image": "/images/sensors/leak-sensor-blue.png"
+      }
+    ]
+  },
+  {
+    "id": "sensor-climate-room",
+    "name": "Climate Sensor",
+    "description": "Tracks room temperature and humidity to help monitor comfort and detect changes.",
+    "price": 19.99,
+    "offerPrice": null,
+    "variants": [
+      {
+        "id": "sensor-climate-room-white",
+        "label": "White",
+        "image": "/images/sensors/climate-sensor-white.png"
+      }
+    ]
+  }
+]

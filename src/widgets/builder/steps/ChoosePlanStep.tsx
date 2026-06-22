@@ -1,6 +1,12 @@
+import plansData from '@/data/bundle-plans.json';
+import type { BundlePlan } from '@/entities/bundle/model/bundle.types';
+import { BundlePlanCard } from '@/widgets/builder/cards/BundlePlanCard';
+import { BuilderStepContent } from '@/widgets/builder/content/BuilderStepContent';
 import { BuilderStep } from '@/widgets/builder/steps/BuilderStep';
 
 export function ChoosePlanStep() {
+  const plans = plansData as BundlePlan[];
+
   return (
     <BuilderStep
       stepNumber={2}
@@ -9,9 +15,13 @@ export function ChoosePlanStep() {
       nextActionLabel="Next: Choose your sensors"
       nextStepNumber={3}
     >
-      <div className="rounded-lg bg-surface-muted p-4 text-sm text-text-muted">
-        Plan options will live here.
-      </div>
+      <BuilderStepContent>
+        <div className="grid gap-4 lg:grid-cols-3">
+          {plans.map((plan) => (
+            <BundlePlanCard key={plan.id} plan={plan} />
+          ))}
+        </div>
+      </BuilderStepContent>
     </BuilderStep>
   );
 }

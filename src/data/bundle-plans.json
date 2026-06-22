@@ -1,0 +1,47 @@
+[
+  {
+    "id": "plan-basic",
+    "name": "Basic Monitoring",
+    "description": "A lightweight plan for motion alerts, event history, and essential smart-home monitoring.",
+    "price": 4.99,
+    "billingPeriod": "month",
+    "offerPrice": null,
+    "badge": "Most Affordable",
+    "features": [
+      "Motion and sound notifications",
+      "7-day event video history",
+      "Up to 5 connected devices",
+      "Basic automation rules"
+    ]
+  },
+  {
+    "id": "plan-home-plus",
+    "name": "Home Plus",
+    "description": "Balanced coverage for households that want longer history, richer alerts, and device health checks.",
+    "price": 9.99,
+    "billingPeriod": "month",
+    "offerPrice": 7.99,
+    "badge": "Popular",
+    "features": [
+      "30-day cloud event history",
+      "Person, package, and vehicle alerts",
+      "Unlimited connected devices",
+      "Weekly device health summaries"
+    ]
+  },
+  {
+    "id": "plan-total-protect",
+    "name": "Total Protect",
+    "description": "Full-featured coverage with pro-level smart alerts, fast support, and premium response features.",
+    "price": 17.99,
+    "billingPeriod": "month",
+    "offerPrice": 14.99,
+    "badge": "Best Value",
+    "features": [
+      "60-day cloud event history",
+      "Advanced AI detection and alert filtering",
+      "Priority customer support",
+      "Emergency dispatch assistance"
+    ]
+  }
+]

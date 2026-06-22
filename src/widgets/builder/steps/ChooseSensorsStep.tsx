@@ -1,6 +1,12 @@
+import sensorsData from '@/data/bundle-sensors.json';
+import type { BundleSelectableProduct } from '@/entities/bundle/model/bundle.types';
+import { BundleProductCard } from '@/widgets/builder/cards/BundleProductCard';
+import { BuilderStepContent } from '@/widgets/builder/content/BuilderStepContent';
 import { BuilderStep } from '@/widgets/builder/steps/BuilderStep';
 
 export function ChooseSensorsStep() {
+  const sensors = sensorsData as BundleSelectableProduct[];
+
   return (
     <BuilderStep
       stepNumber={3}
@@ -9,9 +15,17 @@ export function ChooseSensorsStep() {
       nextActionLabel="Next: Add extra protection"
       nextStepNumber={4}
     >
-      <div className="rounded-lg bg-surface-muted p-4 text-sm text-text-muted">
-        Sensor selection content will live here.
-      </div>
+      <BuilderStepContent>
+        <div className="grid gap-4 xl:grid-cols-2">
+          {sensors.map((sensor) => (
+            <BundleProductCard
+              key={sensor.id}
+              product={sensor}
+              kind="sensor"
+            />
+          ))}
+        </div>
+      </BuilderStepContent>
     </BuilderStep>
   );
 }

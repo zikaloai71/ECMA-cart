@@ -1,0 +1,44 @@
+[
+  {
+    "id": "protection-extended-warranty",
+    "name": "Extended Warranty",
+    "description": "Adds one extra year of coverage for defects, failures, and replacement support.",
+    "price": 6.99,
+    "offerPrice": null,
+    "coverageType": "warranty",
+    "term": "12 months",
+    "benefits": [
+      "Extends hardware coverage by 1 year",
+      "Fast replacement processing",
+      "Coverage for mechanical and electrical failures"
+    ]
+  },
+  {
+    "id": "protection-accidental-damage",
+    "name": "Accidental Damage Protection",
+    "description": "Helps cover accidental drops, cracks, spills, and other day-to-day mishaps.",
+    "price": 8.99,
+    "offerPrice": 6.99,
+    "coverageType": "damage-protection",
+    "term": "12 months",
+    "benefits": [
+      "Covers accidental impact and liquid damage",
+      "One easy claim flow for covered incidents",
+      "Replacement or repair depending on availability"
+    ]
+  },
+  {
+    "id": "protection-priority-support",
+    "name": "Priority Support",
+    "description": "Get faster help, setup guidance, and troubleshooting support when you need it.",
+    "price": 3.99,
+    "offerPrice": null,
+    "coverageType": "support",
+    "term": "Monthly",
+    "benefits": [
+      "Priority chat and email queue",
+      "Guided setup assistance",
+      "Faster troubleshooting turnaround"
+    ]
+  }
+]

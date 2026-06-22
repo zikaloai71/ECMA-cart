@@ -1,15 +1,25 @@
+import protectionsData from '@/data/bundle-protections.json';
+import type { BundleProtection } from '@/entities/bundle/model/bundle.types';
+import { BundleProtectionCard } from '@/widgets/builder/cards/BundleProtectionCard';
+import { BuilderStepContent } from '@/widgets/builder/content/BuilderStepContent';
 import { BuilderStep } from '@/widgets/builder/steps/BuilderStep';
 
 export function AddExtraProtectionStep() {
+  const protections = protectionsData as BundleProtection[];
+
   return (
     <BuilderStep
       stepNumber={4}
       title="Add extra protection"
       icon={<ProtectionIcon />}
     >
-      <div className="rounded-lg bg-surface-muted p-4 text-sm text-text-muted">
-        Extra protection add-ons will live here.
-      </div>
+      <BuilderStepContent>
+        <div className="grid gap-4 lg:grid-cols-3">
+          {protections.map((protection) => (
+            <BundleProtectionCard key={protection.id} protection={protection} />
+          ))}
+        </div>
+      </BuilderStepContent>
     </BuilderStep>
   );
 }
