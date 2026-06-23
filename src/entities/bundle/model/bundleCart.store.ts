@@ -23,7 +23,19 @@ export type BundleCartState = {
   ) => void;
   togglePlanSelection: (planId: string) => void;
   toggleProtectionSelection: (protectionId: string) => void;
+  removeSelection: (productId: string, variantId?: string | null) => void;
+  removePlan: () => void;
+  removeProtection: () => void;
+  clearCart: () => void;
+  clearSavedSystem: () => void;
 };
+
+const EMPTY_CART_STATE = {
+  selectedVariantIdsByProductId: {},
+  quantitiesBySelectionKey: {},
+  selectedPlanId: null,
+  selectedProtectionId: null,
+} satisfies Partial<BundleCartState>;
 
 export const useBundleCartStore = create<BundleCartState>()(
   persist(
@@ -92,6 +104,33 @@ export const useBundleCartStore = create<BundleCartState>()(
           selectedProtectionId:
             state.selectedProtectionId === protectionId ? null : protectionId,
         }));
+      },
+      removeSelection: (productId, variantId) => {
+        const selectionKey = getBundleSelectionKey(productId, variantId);
+
+        set((state) => {
+          if (!(selectionKey in state.quantitiesBySelectionKey)) {
+            return state;
+          }
+
+          const restSelections = { ...state.quantitiesBySelectionKey };
+          delete restSelections[selectionKey];
+
+          return { quantitiesBySelectionKey: restSelections };
+        });
+      },
+      removePlan: () => {
+        set({ selectedPlanId: null });
+      },
+      removeProtection: () => {
+        set({ selectedProtectionId: null });
+      },
+      clearCart: () => {
+        set({ ...EMPTY_CART_STATE });
+      },
+      clearSavedSystem: () => {
+        set({ saveSystemForLaterEnabled: false, ...EMPTY_CART_STATE });
+        void useBundleCartStore.persist.clearStorage();
       },
     }),
     {

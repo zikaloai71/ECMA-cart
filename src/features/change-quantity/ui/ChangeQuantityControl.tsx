@@ -7,6 +7,11 @@ type ChangeQuantityControlProps = {
   onIncrease: () => void;
 };
 
+const baseBtn =
+  'flex h-7 w-7 items-center justify-center rounded border border-border text-xl leading-none transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface';
+const enabledBtn = 'bg-surface text-text-soft';
+const disabledBtn = 'bg-disabled-bg text-disabled-text cursor-not-allowed';
+
 export function ChangeQuantityControl({
   quantity,
   itemName,
@@ -17,11 +22,7 @@ export function ChangeQuantityControl({
     <div className="flex items-center gap-3">
       <button
         type="button"
-        className={cn(
-          'flex h-7 w-7 items-center justify-center rounded border border-[#dfe6ef] bg-white text-xl leading-none text-[#8c96a3] transition-colors outline-none',
-          'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
-          quantity === 0 && 'opacity-75',
-        )}
+        className={cn(baseBtn, quantity === 0 ? disabledBtn : enabledBtn)}
         aria-label={`Decrease quantity of ${itemName}`}
         disabled={quantity === 0}
         onClick={onDecrease}
@@ -38,7 +39,7 @@ export function ChangeQuantityControl({
 
       <button
         type="button"
-        className="flex h-7 w-7 items-center justify-center rounded bg-[#eef1f5] text-xl leading-none text-[#545c67] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+        className={cn(baseBtn, enabledBtn)}
         aria-label={`Increase quantity of ${itemName}`}
         onClick={onIncrease}
       >

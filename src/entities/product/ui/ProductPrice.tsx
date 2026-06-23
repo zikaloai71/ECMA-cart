@@ -10,7 +10,7 @@ export function ProductPrice({ price, offerPrice }: ProductPriceProps) {
     <div className="min-w-0 text-right">
       {offerPrice ? (
         <>
-          <p className="text-lg leading-none text-[#d13e2f] line-through">
+          <p className="text-lg leading-none text-danger line-through">
             {formatCurrency(price)}
           </p>
           <p className="mt-1 text-lg font-normal leading-none text-text-muted">

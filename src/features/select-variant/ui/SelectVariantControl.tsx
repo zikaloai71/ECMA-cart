@@ -32,8 +32,8 @@ export function SelectVariantControl({
               'inline-flex min-h-8 items-center gap-1.5 rounded-sm border px-2 py-1 text-xs font-medium text-text transition-colors outline-none',
               'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
               isSelected
-                ? 'border-text'
-                : 'border-border bg-surface hover:border-border-strong',
+                ? 'border-accent bg-accent/4 text-text'
+                : 'border-border bg-surface text-text hover:border-border-strong',
             )}
             onClick={() => onSelect(variant.id)}
           >

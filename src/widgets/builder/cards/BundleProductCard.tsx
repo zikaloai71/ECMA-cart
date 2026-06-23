@@ -60,7 +60,7 @@ export function BundleProductCard({
       <div className="flex h-full min-w-0 items-stretch gap-4 2xl:flex-col 2xl:items-stretch 2xl:gap-5">
         <div className="flex min-h-0 shrink-0 self-stretch flex-col gap-3 2xl:w-full">
           {savingsPercent ? (
-            <p className="w-fit rounded-pill bg-[#4c37d9] px-3 py-1 text-xs font-semibold tracking-[-0.03em] text-white shadow-sm sm:text-sm">
+            <p className="w-fit rounded-pill bg-primary px-3 py-1 text-xs font-semibold tracking-[-0.03em] text-text-inverse shadow-sm sm:text-sm">
               Save {savingsPercent}%
             </p>
           ) : null}
@@ -80,7 +80,7 @@ export function BundleProductCard({
             </h3>
             <p className="text-sm leading-6 text-text-muted sm:text-base">
               {product.description}{' '}
-              <span className="text-[#1727ff] underline underline-offset-2">
+              <span className="text-primary underline underline-offset-2">
                 Learn More
               </span>
             </p>
