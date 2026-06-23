@@ -1,15 +1,14 @@
-type DarkModeToggleProps = {
-  isDark: boolean;
-  onToggle: () => void;
-};
+import { useTheme } from '@/app/providers/useTheme';
 
-export function DarkModeToggle({ isDark, onToggle }: DarkModeToggleProps) {
+export function DarkModeToggle() {
+  const { isDark, toggle } = useTheme();
+
   return (
     <button
       type="button"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       aria-pressed={isDark}
-      onClick={onToggle}
+      onClick={toggle}
       className="flex items-center gap-2 rounded-pill border border-border bg-surface px-4 py-2 text-sm font-medium text-text shadow-card transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page"
     >
       <span aria-hidden="true">{isDark ? <SunIcon /> : <MoonIcon />}</span>
